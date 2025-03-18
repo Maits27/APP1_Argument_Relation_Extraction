@@ -1,0 +1,19 @@
+NUEVO DATASET:
+Nombre: train_sueltas
+	Número de datos total: 1830
+		Entailment: 610
+		Contra: 610
+		Neutral: 610
+		Todas las neutrales que había: 5762
+Nombre: dev
+	Número de datos total: 1930
+		Entailment: 69
+		Contra: 69
+		Neutral: 1792
+		Todas las neutrales que había: 0
+Nombre: test
+	Número de datos total: 4822
+		Entailment: 219
+		Contra: 219
+		Neutral: 4384
+		Todas las neutrales que había: 0
