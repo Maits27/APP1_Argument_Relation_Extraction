@@ -2,7 +2,7 @@
   "label_names": ["no_relation", "attack", "support"],
 
   "data_path": "/gaueko1/users/murruela002/APP1/NLIsrc/Inferencia/Datasets/MULTZO.json",
-  "model_path": "/gaueko1/users/murruela002/APP1/NLIsrc/RV/NOMBRE_DATASET",
+  "model_path": "/gaueko1/users/mmartin/ENVIRONMENT/NLIsrc/output_first/6_3000",
   "output_dir": "/gaueko1/users/murruela002/APP1/NLIsrc/Inferencia/outputs/outputNOMBRE_DATASET_MULTZO",
   "overwrite_output_dir": false,
 
@@ -14,8 +14,7 @@
           "'{X}' attack '{Y}'"
       ],
       "support": [
-          "'{X}' confirm '{Y}'",
-          "'{X}' corroborate '{Y}'"
+          "'{X}' support '{Y}'"
       ]
   }
 }

@@ -1,0 +1,2 @@
+Datos originales: 1830 instancias
+Datos en el 5.0%: 90 instancias

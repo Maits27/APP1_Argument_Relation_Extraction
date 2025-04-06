@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #SBATCH --job-name='casimedicosNLI_a2t'
 #SBATCH --cpus-per-task=1
-#SBATCH --mem=200GB
+#SBATCH --mem=50GB
 #SBATCH --gres=gpu:1
 #SBATCH --mail-user=murruela002@ikasle.ehu.eus
 #SBATCH --output=./out/a2t_out_logs.log
@@ -12,17 +12,15 @@ source /gaueko1/users/murruela002/hf/hf.txt
 export PATH="$instructenv":"$PATH"
 
 SRC_PATH='/gaueko1/users/murruela002/APP1/NLIsrc'
-#dev_script_path="$SRC_PATH/Inferencia/a2t.py"
 dev_script_path="/gaueko1/users/murruela002/APP1/NLIsrc/Ask2Transformers/a2t_script.py"
 json_path="$SRC_PATH/params/inferencia_params.json"
 
 function a2t_run(){
     dataset=$1
-    thres=0.8
+    thres=0.2
 
     echo $thres
     multzo=$2
-#    echo Dataset $dataset
     OUTPUT_PATH="/gaueko1/users/murruela002/APP1/NLIsrc/Inferencia/outputs/output${dataset}_${multzo}"
 
     cp "$SRC_PATH/params/a2t_plantilla.json" "$json_path"
@@ -30,51 +28,16 @@ function a2t_run(){
     sed -i.bak "s#NOMBRE_DATASET#$dataset#" $json_path
     sed -i.bak "s#MULTZO#$multzo#" $json_path
     sed -i.bak "s#THRESHOLD#$thres#" $json_path
-
+    echo entro
     python $dev_script_path
 
     cp $json_path "$OUTPUT_PATH/params.json"
 }
 
-for data in 1
+for data in 0.05 0.1 0.2 100
 do
-    for grupo in "test"
+    for grupo in "dev"
     do
         a2t_run $data $grupo
     done
 done
-
-
-if [[ $dataset == 1 ]]; then
-   thres=0.995995995995996
-fi
-if [[ $dataset == 2 ]]; then
-   thres=0.7507507507507507
-fi
-if [[ $dataset == 3 ]]; then
-   thres=0.35235235235235235
-fi
-if [[ $dataset == 4 ]]; then
-   thres=0.996996996996997
-fi
-if [[ $dataset == 5 ]]; then
-   thres=1.0
-fi
-if [[ $dataset == 6 ]]; then
-   thres=1.0
-fi
-if [[ $dataset == 7 ]]; then
-   thres=0.997997997997998
-fi
-if [[ $dataset == 8 ]]; then
-   thres=0.998998998998999
-fi
-if [[ $dataset == 9 ]]; then
-   thres=1.0
-fi
-if [[ $dataset == 10 ]]; then
-   thres=0.997997997997998
-fi
-if [[ $dataset == 11 ]]; then
-   thres=1.0
-fi

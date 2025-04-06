@@ -1,0 +1,20 @@
+{
+  "label_names": ["no_relation", "attack", "support"],
+
+  "data_path": "/gaueko1/users/murruela002/APP1/NLIsrc/Inferencia/Datasets/test.json",
+  "model_path": "/gaueko1/users/murruela002/APP1/NLIsrc/output/data_0.2/2_3000",
+  "output_dir": "/gaueko1/users/murruela002/APP1/NLIsrc/Inferencia/outputs/output0.2_test",
+  "overwrite_output_dir": false,
+
+  "negative_threshold": 0.6696696696696697,
+  "negative_label_id": 0,
+
+  "templates": {
+      "attack": [
+          "'{X}' attack '{Y}'"
+      ],
+      "support": [
+          "'{X}' support '{Y}'"
+      ]
+  }
+}

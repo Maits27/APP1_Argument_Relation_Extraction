@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #SBATCH --job-name='casimedicosNLI'
 #SBATCH --cpus-per-task=1
-#SBATCH --mem=200GB
+#SBATCH --mem=50GB
 #SBATCH --gres=gpu:1
 #SBATCH --mail-user=murruela002@ikasle.ehu.eus
 #SBATCH --output=./out/out_logs.log
@@ -9,18 +9,13 @@
 
 #---------------------------------------------------------
 # Preparar el entorno
-
-# source /var/python3envs/transformers-4.12.3/bin/activate
 source /gaueko1/users/murruela002/hf/hf.txt
 # Behar dugun igurune birtuala aktibatzen dugu
 export PATH="$instructenv":"$PATH"
-# export HF_HOME=/gscratch/users/USER/MY_TRANSFORMER_evaluation
-# export TRANSFORMERS_CACHE=/gscratch/users/USER/MY_TRANSFORMER_evaluation/transformers
+
 
 #---------------------------------------------------------
 # Definir paths (a ser posible que sean absolutos)
-# export CUDA_LAUNCH_BLOCKING=1
-# unset CUDA_VISIBLE_DEVICES
 OUTPUT_PATH='/gaueko1/users/murruela002/APP1/NLIsrc/output'
 
 SRC_PATH='/gaueko1/users/murruela002/APP1/NLIsrc'
@@ -38,24 +33,22 @@ function train-transformer() {
   warmup=$2
   prueba_init=$4
   datos=$5
+  porcentaje=$6
   # Hacemos X pruebas
-  for i in {1..1}; do
+  for i in {1..3}; do
     if [ $i -eq 1 ]; then
       seed=3000
     else
       seed=$(shuf -i 0-2999 -n 1)
     fi
-    prueba="${prueba_init}"
+    prueba="${prueba_init}_${seed}"
     
     # Copiamos la plantilla de los parámetros que hay que pasarle al script de entrenamiento
     cp "$SRC_PATH/params/plantilla.json" "$json_path"
-#    cp "$SRC_PATH/scripts/training.py" "$OUTPUT_PATH"
-
-    # Generamos una seed random
-    # seed=3000
 
     # Editamos la COPIA de la plantilla poniendo los parámetros correctos
     sed -i.bak "s#RUN_NUM#$prueba#" $json_path
+    sed -i.bak "s#PORCENTAJE#$porcentaje#" $json_path
     sed -i.bak "s#END_OF_DATASET#$datos#" $json_path
     sed -i.bak "s#VAR_LR#$learning_rate#" $json_path
     sed -i.bak "s#VAR_WD#$weight_decay#" $json_path
@@ -66,37 +59,31 @@ function train-transformer() {
     python  $train_script_path
 
     # Limpiamos las carpetas output de los experimentos
-    python "$cleaner_script_path" -i "$OUTPUT_PATH/$prueba"
+    python "$cleaner_script_path" -i "$OUTPUT_PATH/$porcentaje/$prueba"
 
-    # Copiamos el archivo con los parámetros del experimento a la carpeta del experimento p
     cp $json_path "$OUTPUT_PATH/$prueba/params.json"
     cp "$SRC_PATH/scripts/training.py" "$OUTPUT_PATH"
-    #cp $json_path "$OUTPUT_PATH/$prueba"
-    done
-    python "/gaueko1/users/murruela002/APP1/NLIsrc/scripts/csv_outputs.py"
-    #python "/gaueko1/users/murruela002/APP1/NLIsrc/scripts/matriz.py"
+  done
+
 }
 
 #---------------------------------------------------------
 # Definir que experimentos hacer con qué learning rates (referencia: el por defecto de Hugg>
 
-#train-transformer "75e-6" "0.05" "0.01" "0" ""
-#train-transformer "75e-6" "0.05" "0.01" "1" "_evitando_concatenaciones"
-#train-transformer "75e-6" "0.0" "0.01" "2" "_evitando_concatenaciones_viejo"
-#train-transformer "5e-5" "0.05" "0.01" "3" "_sueltas"
-# for data in "" "_evitando_concatenaciones_viejo" "_evitando_concatenaciones" "_sueltas"
-
 k=0
-for lr in 5e-5
+for lr in 5e-5 75e-6
 do
-  for warmup in 0.05
+  for warmup in 0.1 0.05
   do
-    for wd in 0.01
+    for wd in 0.001 0.01
     do
       for data in "_sueltas"
       do
-        train-transformer $lr $warmup $wd $k $data
-        k=$((k + 1))
+        for carpeta_porcentaje in "datos_secuencia" "data_0.05" "data_0.1" "data_0.2"
+        do
+          train-transformer $lr $warmup $wd $k $data $carpeta_porcentaje
+          k=$((k + 1))
+        done
       done
     done
   done

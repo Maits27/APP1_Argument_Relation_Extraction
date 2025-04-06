@@ -1,0 +1,43 @@
+{
+    "loading_script_path": "/gaueko1/users/mmartin/ENVIRONMENT/NLIsrc/dataset_loader/dataset_loader.py",
+    "do_train": true,
+    "do_eval":true,
+    "do_predict":false,
+    "train_file": "/gaueko1/users/mmartin/ENVIRONMENT/NLIsrc/Datasets/train_sueltas.json",
+    "dev_file": "/gaueko1/users/mmartin/ENVIRONMENT/NLIsrc/Datasets/dev.json",
+    "test_file": "/gaueko1/users/mmartin/ENVIRONMENT/NLIsrc/Datasets/test.json",
+
+    "model_path": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+
+    "overwrite_cache":false,
+    "overwrite_output_dir":false,
+    "pad_to_max_length":false,
+    "config_name": null,
+    "tokenizer_name": null,
+    "dataset_cache_dir": null,
+    "cache_dir": null,
+    "preprocessing_num_workers": null,
+
+    "output_dir": "/gaueko1/users/mmartin/ENVIRONMENT/NLIsrc/output/2_3000",
+    "num_train_epochs": 5, 
+    "per_device_train_batch_size": 8,
+    "per_device_eval_batch_size": 8,
+    "gradient_accumulation_steps": 8,
+    "learning_rate": 5e-5,
+    "seed": 3000,
+    "weight_decay": 0.01,
+    "warmup_ratio": 0.1,
+    "evaluation_strategy": "epoch",
+    "save_strategy": "epoch",
+    "load_best_model_at_end": true,
+    "metric_for_best_model": "f1_ent",
+
+
+    "return_entity_level_metrics":true,
+    "task_name": "nli",
+
+    "report_to": "wandb",
+    "run_name": "Dataset verbalizaciones V4.2 2_3000 _sueltas",
+
+    "metric_script_path": "metrics.py"
+}

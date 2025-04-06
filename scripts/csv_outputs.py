@@ -31,16 +31,17 @@ def combinarJSON(init):
             'warmup': wr,
             'batch_size': params['per_device_train_batch_size'],
             'gradient_accumulation': params['gradient_accumulation_steps'],
+            "percentage": params['train_file'].split('/')[-2],
             'train_files': params['train_file'].split('/')[-1],
             "Name_of_experiment": params['run_name']
         })
 
         datos_combinados.append(datos_json)
 
-        with open(f'{initPath}/todasLasMetricas.json', 'w', encoding='utf-8') as file:
+        with open(f'{initPath}/todasLasMetricas_dev.json', 'w', encoding='utf-8') as file:
             json.dump(datos_combinados, file, indent=2)
 
-    return json_to_dataframe(f'{initPath}/todasLasMetricas.json')
+    return json_to_dataframe(f'{initPath}/todasLasMetricas_dev.json')
 
 
 def sacarCSV(initPath, output_csv, output_excel):
@@ -57,4 +58,4 @@ def csv_a_excel(initPath, output_csv, output_excel):
 
 
 if __name__ == "__main__":
-    sacarCSV('/gaueko1/users/murruela002/APP1/NLIsrc/Resultados_verbalizaciones/output_RS_verbalizaciones', 'output.csv', 'output_RS_verbalizaciones.xlsx')
+    sacarCSV('/proiektuak/edhia/surisk/experiments/train_eriberta/output/eriberta', 'output_dev.csv', 'output_dev.xlsx')

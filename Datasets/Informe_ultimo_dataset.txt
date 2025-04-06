@@ -1,19 +1,30 @@
-NUEVO DATASET:
-Nombre: train_sueltas
-	Número de datos total: 1830
-		Entailment: 610
-		Contra: 610
-		Neutral: 610
-		Todas las neutrales que había: 5762
-Nombre: dev
-	Número de datos total: 1930
-		Entailment: 69
-		Contra: 69
-		Neutral: 1792
-		Todas las neutrales que había: 0
-Nombre: test
-	Número de datos total: 4822
-		Entailment: 219
-		Contra: 219
-		Neutral: 4384
-		Todas las neutrales que había: 0
+DOCUMENTO: train_sueltas
+Total de documentos: 196
+Attack: 299
+Support: 311
+-------------------------
+Entailment: 610
+Contradiction: 610
+Neutral: 610
+############################################
+
+DOCUMENTO: dev
+Total de documentos: 26
+Attack: 24
+Support: 45
+-------------------------
+Entailment: 69
+Contradiction: 69
+Neutral: 1792
+############################################
+
+DOCUMENTO: test
+Total de documentos: 68
+Attack: 99
+Support: 120
+-------------------------
+Entailment: 219
+Contradiction: 219
+Neutral: 4384
+############################################
+
