@@ -33,3 +33,12 @@ As for the elememts in this repository:
 ### SLURM
 [slurm](slurm) folder contains the bash files needed to change all the hyperparameters located in params folder and execute the training script with the different configurations for all the experiments. [run_secuencias](slurm/run_secuencias.slurm) corresponds to the experiments of text classification, [run_nli_train](slurm/run_nli_train.slurm) to the NLI models' training and the [run_a2t](slurm/run_a2t.slurm) bash is executed once we have the trained NLI model to perform the multiple zero-shots using Ask2Transformers to predict the relations.
 
+### INFERENCIA
+[Inferencia](Inferencia) folder contains the data needed to evaluate the NLI model in the corresponding format ([Datasets](Inferencia/Datasets)) and the script to be placed in Ask2Transformers repository.
+
+## RESULTS
+The results for the different experiments are located in the following folders:
+* Text classification results: [Results_models/Text-Classification](Results_models/Text-Classification)
+* NLI model training results: [Results_models/NLI](Results_models/NLI)
+* Ask2Transformers results leveraging the NLI models: [Inferencia/outputs](Inferencia/outputs)
+
