@@ -7,8 +7,8 @@ We compare a two-step Natural Language Inference (NLI) method with a conventiona
 ## Used external tools and models
 As stated before, two models will be used to train the different methods to be compared. These are:
 
-* For text clssification methodology: [FacebookAI/roberta-base](https://huggingface.co/FacebookAI/roberta-base)
-* For NLI-based methodology: [MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7](https://huggingface.co/MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7)
+* For text clssification methodology: [FacebookAI/roberta-base](https://huggingface.co/FacebookAI/roberta-base).
+* For NLI-based methodology: [MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7](https://huggingface.co/MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7).
 
 Also, for the NLI-based methodology, we leverage [Ask2Transformers](https://github.com/osainz59/Ask2Transformers/tree/master) library in order to perform multiple zero-shot NLI trials with varied verbalizations per relation and predicting the most probable relationship.
 
@@ -25,7 +25,10 @@ As for the elememts in this repository:
 [params](params) folder contains the templates of the different experiments with their corresponding configurations. The missing values or the ones that are in higher case will be replaced using the slurm folder's executables.
 
 ### SCRIPTS
-[scripts](scripts) folder contains all the scripts needed to train the two different models: <train_seq.py> and <training.py>
+[scripts](scripts) folder contains all the scripts needed to train the two different models (```metodos_train.py```, ```train_seq.py``` and ```training.py```), the ones to visualize the results (```csv_outputs.py``` and ```matriz.py```) and two more folders: 
+
+* [preprocess](scripts/preprocess) to preprocess the data of casiMedicos and convert it to the different training files.
+* [utils](scripts/utils) with the scripts used to clean the output files and other helping methods.
 
 ### SLURM
 [slurm](slurm) folder contains the bash files needed to change all the hyperparameters located in params folder and execute the training script with the different configurations for all the experiments. [run_secuencias](slurm/run_secuencias.slurm) corresponds to the experiments of text classification, [run_nli_train](slurm/run_nli_train.slurm) to the NLI models' training and the [run_a2t](slurm/run_a2t.slurm) bash is executed once we have the trained NLI model to perform the multiple zero-shots using Ask2Transformers to predict the relations.
