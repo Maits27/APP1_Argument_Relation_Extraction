@@ -58,4 +58,4 @@ def csv_a_excel(initPath, output_csv, output_excel):
 
 
 if __name__ == "__main__":
-    sacarCSV('/proiektuak/edhia/surisk/experiments/train_eriberta/output/eriberta', 'output_dev.csv', 'output_dev.xlsx')
+    sacarCSV('/gaueko1/users/murruela002/APP1/NLIsrc/outputs', 'output_dev.csv', 'output_dev.xlsx')
